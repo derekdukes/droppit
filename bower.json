@@ -1,0 +1,12 @@
+{
+    "name": "Droppit",
+    "description": "A simple browser-based file manager for private networks.",
+    "version": "0.1",
+    "private": true,
+    "dependencies": {
+        "jquery": "",
+        "bootstrap": "",
+        "font-awesome":"",
+        "angular":""
+    }
+}
