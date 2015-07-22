@@ -1,0 +1,5 @@
+#gitignore for droppit
+
+.idea/
+bower_components/
+node_modules/
