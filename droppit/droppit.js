@@ -46,7 +46,7 @@ function getFullDirList(workingDir,type) {
     var filteredList = [],
         dirList = jetpack.list(workingDir);
     dirList.forEach(function(item) {
-        if (jetpack.exists(item) === type) {
+        if (jetpack.exists(workingDir + path.sep + item) === type) {
             filteredList.push(item);
         }
     });

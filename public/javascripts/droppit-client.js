@@ -6,34 +6,56 @@ var Droppit = Droppit || {};
 
 Droppit.Client = (function() {
     var init,
-        dirList,
-        fileList,
+        updateFolderList,
+        addFolderListeners,
+        addFileListeners,
+        updateFileList,
+        fileListItem,
         folderList
         ;
 
     init = function() {
-        Droppit.Globals.dirList = dirList();
+        updateFolderList();
+
     };
 
-    dirList = function() {
-
-        var returnValue = '',
-            request = {
-            type: 'GET',
-            url: Droppit.Globals.listUrl
-        };
+    updateFolderList = function() {
+        var request = {
+                type: 'GET',
+                url: Droppit.Globals.foldersUrl
+            };
 
         $.ajax(request)
             .done(function(data) {
                 console.log(data);
-                returnValue = data;
+                var folderListHtml = "";
+                $.each(data, function(index,value){
+                    folderListHtml = folderListHtml + '<a href="#" id="' + value + '" class="list-group-item folderLink"><i class="fa fa-fw fa-folder"></i> ' + value + '</a>';
+                });
+                folderListHtml = folderListHtml + '<a class="list-group-item" href="#" id="addNewFolder"><i class="fa fa-fw fa-plus"></i> Add New Folder</a>';
+                console.log(folderListHtml);
+                $('#folderList').html(folderListHtml);
+                addFolderListeners();
             });
-        return returnValue;
+    };
+
+    addFolderListeners = function() {
+        $('.folderLink').on('click', function(evt) {
+            evt.preventDefault();
+            $('.folderLink').removeClass('active');
+            Droppit.Globals.currentDir = $(this).attr('id');
+            $(this).addClass('active');
+            updateFileList($(this).attr('id'));
+        });
+    };
+
+    addFileListeners = function() {
 
     };
 
-    fileList = function(location) {
-        var returnValue = '',
+
+    updateFileList = function(location) {
+        var fileListHtml = '',
             request = {
                 type: 'GET',
                 url: Droppit.Globals.filesUrl,
@@ -43,9 +65,15 @@ Droppit.Client = (function() {
         $.ajax(request)
             .done(function(data) {
                 console.log(data);
-                returnValue = data;
+                if (data.length === 0) {
+                    fileListHtml = '<li class="list-group-item">No Files in Selected Folder</li>';
+                } else {
+                    $.each(data,function(index,value) {
+                        fileListHtml = fileListHtml + fileListItem(value);
+                    });
+                }
+                $('#fileList').html(fileListHtml);
             });
-        return returnValue;
     };
 
     folderList = function(location) {
@@ -64,10 +92,20 @@ Droppit.Client = (function() {
         return returnValue;
     };
 
+    fileListItem = function(fileName) {
+        var listItemHtml = '<li class="list-group-item">' + fileName;
+        listItemHtml = listItemHtml + '<div class="pull-right">';
+        listItemHtml = listItemHtml + '<i class="fa fa-fw fa-pencil fileLinkRename" data-filename="' + fileName + '"></i>';
+        listItemHtml = listItemHtml + '<i class="fa fa-fw fa-trash-o fileLinkDelete" data-filename="' + fileName + '"></i>';
+
+
+        listItemHtml = listItemHtml + '</div></li>';
+        return listItemHtml;
+
+    };
+
 
     return {
-        init:init,
-        fileList:fileList,
-        folderList:folderList
+        init:init
     }
 })();

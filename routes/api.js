@@ -10,38 +10,38 @@ router.get('/', function(req, res) {
 
 // Get list of all files and folders in working dir
 router.get('/list', function(req,res) {
-    var workingDir = (req.header('X-workingDir') ? req.header('X-workingDir') : process.cwd());
+    var workingDir = (req.header('X-working-dir') ? req.header('X-working-dir') : process.cwd());
     var theList = droppit.getFullDirList(workingDir);
     res.send(theList);
 });
 
 // Get list of files only
 router.get('/files', function(req,res) {
-    var workingDir = (req.header('X-workingDir') ? req.header('X-workingDir') : process.cwd());
+    var workingDir = (req.header('X-working-dir') ? req.header('X-working-dir') : process.cwd());
     res.send(droppit.getFileList(workingDir));
 });
 
 // Get list of folders only
 router.get('/folders', function(req,res) {
-    var workingDir = (req.header('X-workingDir') ? req.header('X-workingDir') : process.cwd());
+    var workingDir = (req.header('X-working-dir') ? req.header('X-working-dir') : process.cwd());
     res.send(droppit.getFolderList(workingDir));
 });
 
 // Create new folder
 router.post('/folders/:name', function(req,res) {
-    var workingDir = (req.header('X-workingDir') ? req.header('X-workingDir') : process.cwd());
+    var workingDir = (req.header('X-working-dir') ? req.header('X-working-dir') : process.cwd());
     var statusCode = droppit.createFolder(workingDir,req.params.name);
     res.sendStatus(statusCode);
 });
 
 router.delete('/folders/:name', function(req,res) {
-    var workingDir = (req.header('X-workingDir') ? req.header('X-workingDir') : process.cwd());
+    var workingDir = (req.header('X-working-dir') ? req.header('X-working-dir') : process.cwd());
     var statusCode = droppit.deleteAsset(workingDir,req.params.name);
     res.sendStatus(statusCode);
 });
 
 router.delete('/files/:name', function(req,res) {
-    var workingDir = (req.header('X-workingDir') ? req.header('X-workingDir') : process.cwd());
+    var workingDir = (req.header('X-working-dir') ? req.header('X-working-dir') : process.cwd());
     var statusCode = droppit.deleteAsset(workingDir,req.params.name);
     res.sendStatus(statusCode);
 });
