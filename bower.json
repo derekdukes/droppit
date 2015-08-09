@@ -7,6 +7,6 @@
         "jquery": "",
         "bootstrap": "",
         "font-awesome":"",
-        "angular":""
+        "dropzone":""
     }
 }

@@ -11,6 +11,7 @@ module.exports = {
     getFileList:getFileList,
     getFolderList:getFolderList,
     getFullDirList:getFullDirList,
+    getTree:getTree,
     createFolder:createFolder,
     deleteAsset:deleteAsset,
     processUpload:processUpload
@@ -51,6 +52,18 @@ function getFullDirList(workingDir,type) {
         }
     });
     return filteredList;
+}
+
+function getTree(workingDir) {
+    if(!workingDir) {
+        workingDir = jetpack.cwd();
+    }
+    console.log(workingDir);
+    //using global var fullTree because recursion
+    var fullTree = jetpack.inspectTree(workingDir,{absolutePath:true});
+    // call function to iterate through tree and trim absolute paths
+    //return fullTree;
+    return trimTree(fullTree,workingDir);
 }
 
 // Creates new folder in working dir
@@ -99,3 +112,24 @@ function processUpload(req, filePath) {
         });
     });
 }
+
+function trimTree(obj,workingDir) {
+    var oldPath,
+        newPath
+        ;
+    if (obj.hasOwnProperty('children')) {
+        var children = obj.children;
+        var childLength = children.length;
+        for (var i = 0; i < childLength; i++) {
+            children[i] = trimTree(children[i],workingDir);
+        }
+    }
+    oldPath = obj.absolutePath;
+    newPath = oldPath.replace(workingDir,'');
+    obj.absolutePath = newPath;
+    return obj;
+}
+
+
+
+

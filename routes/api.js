@@ -1,7 +1,8 @@
 var droppit = require('../droppit/droppit'),
     express = require('express'),
     router = express.Router(),
-    formidable = require('formidable')
+    formidable = require('formidable'),
+    jetpack = require('fs-jetpack')
     ;
 
 router.get('/', function(req, res) {
@@ -25,6 +26,10 @@ router.get('/files', function(req,res) {
 router.get('/folders', function(req,res) {
     var workingDir = (req.header('X-working-dir') ? req.header('X-working-dir') : process.cwd());
     res.send(droppit.getFolderList(workingDir));
+});
+
+router.get('/tree', function(req,res) {
+    res.send(droppit.getTree(process.cwd()));
 });
 
 // Create new folder

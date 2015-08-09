@@ -7,9 +7,10 @@
   <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
   <link rel="stylesheet" href="../bower_components/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="../bower_components/dropzone/dist/min/dropzone.min.css">
   <script src="../bower_components/jquery/dist/jquery.min.js"></script>
   <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-  <script src="../bower_components/angular/angular.min.js"></script>
+  <script src="../bower_components/dropzone/dist/min/dropzone.min.js"></script>
   <script src="javascripts/droppit-client.js"></script>
   <script src="javascripts/global.js"></script>
 </head>
@@ -26,29 +27,35 @@
 
 
         <div class="col-md-3 col-md-offset-1">
-          <div class="panel panel-default">
-            <div class="panel-heading">Folders</div>
-            <div class="panel-body">
+          <h4>Folders</h4>
               <div class="list-group" id="folderList">
 
               </div>
+
+        </div>
+        <div class="col-md-4">
+         <h4>Files</h4>
+
+              <ul class="list-group" id="fileList">
+                <li class="list-group-item">No folder selected.</li>
+              </ul>
+
+          <div class="panel panel-default">
+            <div class="panel-heading">Upload</div>
+            <div class="panel-body">
+
+
             </div>
           </div>
 
         </div>
-        <div class="col-md-6">
+        <div class="col-md-3">
           <div class="panel panel-default">
-            <div class="panel-heading">Files</div>
+            <div class="panel-heading">Preview</div>
             <div class="panel-body">
-              <ul class="list-group" id="fileList">
-
-              </ul>
-            </div>
-          </div>
-          <div class="panel panel-default">
-            <div class="panel-heading">Upload</div>
-            <div class="panel-body">
-              <h3>Drag files here to upload</h3>
+              <div id="filePreview">
+                <p>No file selected.</p>
+              </div>
             </div>
           </div>
         </div>

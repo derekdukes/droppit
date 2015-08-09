@@ -95,6 +95,7 @@ Droppit.Client = (function() {
     fileListItem = function(fileName) {
         var listItemHtml = '<li class="list-group-item">' + fileName;
         listItemHtml = listItemHtml + '<div class="pull-right">';
+        listItemHtml = listItemHtml + '<i class="fa fa-fw fa-eye fileLinkInspect" data-filename="' + fileName + '"></i>';
         listItemHtml = listItemHtml + '<i class="fa fa-fw fa-pencil fileLinkRename" data-filename="' + fileName + '"></i>';
         listItemHtml = listItemHtml + '<i class="fa fa-fw fa-trash-o fileLinkDelete" data-filename="' + fileName + '"></i>';
 
@@ -109,3 +110,6 @@ Droppit.Client = (function() {
         init:init
     }
 })();
+
+
+
