@@ -1,4 +1,4 @@
-var droppit = require('../droppit/droppit'),
+var droppit = require('../droppit'),
     express = require('express'),
     router = express.Router(),
     formidable = require('formidable'),
